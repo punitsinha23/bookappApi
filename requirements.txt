@@ -4,3 +4,4 @@ django-cors-headers>=4.0.0
 gunicorn 
 psycopg2
 django-cors-headers
+whitenoise
