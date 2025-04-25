@@ -2,4 +2,5 @@ Django>=4.2,<5.0
 djangorestframework>=3.14.0
 django-cors-headers>=4.0.0 
 gunicorn 
-pyscopg2
+psycopg2
+django-cors-headers
