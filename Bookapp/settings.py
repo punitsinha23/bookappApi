@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,11 +84,14 @@ WSGI_APPLICATION = 'Bookapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',  # Database name
-        'USER': 'postgres',  # Username
-        'PASSWORD': 'ndgTlwwlVUjyjEMDpEOVBUrUxsELKoET',  # Password
-        'HOST': 'mainline.proxy.rlwy.net',  # Host
-        'PORT': '19788',  # Port
+        'NAME': 'neondb',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_R4QohaGTl8Ax',
+        'HOST': 'ep-silent-dust-adwc5sxg-pooler.c-2.us-east-1.aws.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',  # Required by Supabase
+        },
     }
 }
 
