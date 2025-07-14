@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 
 load_dotenv()
@@ -25,12 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g36e=)o_v%=)=^d(_wqbxq+_x-t1^1^9kyjqdx0#@ec+j(o30w'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split("")
+
 
 
 # Application definition
@@ -84,19 +86,16 @@ WSGI_APPLICATION = 'Bookapp.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'neondb',
-        'USER': 'neondb_owner',
-        'PASSWORD': 'npg_R4QohaGTl8Ax',
-        'HOST': 'ep-silent-dust-adwc5sxg-pooler.c-2.us-east-1.aws.neon.tech',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',  # Required by Supabase
-        },
+        'default':{
+            "ENGINE" : "django.db.backends.sqlite3",
+            "NAME" : BASE_DIR / "db.sqlite3",
+        }
     }
 }
 
+database_url = os.environ.get("DATABASE_URL")
 
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 
 # Password validation
