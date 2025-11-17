@@ -101,7 +101,7 @@ if DATABASE_URL:
     DATABASES["default"] = dj_database_url.config(
         default=DATABASE_URL,
         conn_max_age=600,
-        ssl_require=False  # set to True only if your PG server forces SSL
+        ssl_require=True, # set to True only if your PG server forces SSL
     )
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
