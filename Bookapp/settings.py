@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from dotenv import load_dotenv
+load_dotenv()
+
 
 
 
@@ -26,10 +29,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "1234567890abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -91,16 +94,15 @@ DATABASES = {
     }
 }
 
-# If DATABASE_URL is set (e.g. on Render), use Postgres instead
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")  # now dotenv loads it
+print("Database URL:", DATABASE_URL)
 
 if DATABASE_URL:
     DATABASES["default"] = dj_database_url.config(
         default=DATABASE_URL,
-        conn_max_age=600,   
-        ssl_require=True   
+        conn_max_age=600,
+        ssl_require=False  # set to True only if your PG server forces SSL
     )
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
